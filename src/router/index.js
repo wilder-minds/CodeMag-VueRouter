@@ -5,6 +5,12 @@ import Cats from '@/views/Cats.vue'
 import Cat from "@/views/Cat.vue";
 import CatList from "@/views/CatList.vue";
 
+// Sample Authorization Guard
+// function checkAuth(to, from, next) {
+//   if (IsAuthenticated()) next();
+//   else next("/login");
+// }
+
 const routes = [
   {
     path: '/',
@@ -15,6 +21,7 @@ const routes = [
   path: '/cats',
   name: 'Cats',
   component: Cats,
+  //beforeEnter: checkAuth,
   children: [
     {
       name: "CatList",
@@ -25,7 +32,10 @@ const routes = [
     {
       path: 'cat/:url',
       name: 'Cat',
-      component: Cat
+      component: Cat,
+      beforeEnter: (to, from, next) => {
+        next();
+      }
     },
   ]
 },
